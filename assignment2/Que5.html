@@ -126,26 +126,15 @@
     <script>
         $(document).ready(function () {
             $("#myForm").submit(function (event) {
-                // Prevent the form from submitting
                 event.preventDefault();
-
-                // Get the value of the name input field
                 const nameValue = $("#name").val();
-
-                // Define the pattern (only letters, min length 3, max length 20)
                 const namePattern = /^[A-Za-z]{3,20}$/;
-
-                // Check if the name field is empty
                 if (nameValue.trim() === "") {
                     $("#nameError").text("Name cannot be empty");
                 } else if (!namePattern.test(nameValue.trim())) {
-                    // Check if the name field matches the pattern
                     $("#nameError").text("Name must contain only letters");
                 } else {
-                    // Clear any previous error message
                     $("#nameError").text("");
-
-                    // Submit the form (or perform other actions)
                     alert("Form submitted successfully!");
                 }
             });

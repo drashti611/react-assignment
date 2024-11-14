@@ -7,7 +7,6 @@
     <title>State and City Dropdown</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* Background Style */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -17,7 +16,6 @@
             margin: 0;
         }
 
-        /* Dropdown Container */
         .dropdown-container {
             background: #e4e5fb;
             padding: 40px;
@@ -26,12 +24,8 @@
             max-width: 400px;
             border: solid #d2e2f9;
             width: 100%;
-
-
         }
 
-
-        /* Form Title */
         h2 {
             font-size: 24px;
             color: #333;
@@ -40,7 +34,6 @@
             padding-bottom: 10px;
         }
 
-        /* Label Style */
         label {
             font-weight: 600;
             margin-bottom: 10px;
@@ -50,7 +43,6 @@
             font-size: 14px;
         }
 
-        /* Dropdown Style */
         select {
             width: 100%;
             padding: 12px;
@@ -71,7 +63,6 @@
             outline: none;
         }
 
-        /* Button Style */
         button {
             width: 100%;
             padding: 12px;
@@ -94,13 +85,11 @@
             transform: scale(0.98);
         }
 
-        /* Additional Input Styling */
         select::placeholder {
             color: #aaa;
             font-style: italic;
         }
 
-        /* Smooth Transition for Dropdown */
         select option {
             padding: 10px;
         }
@@ -138,25 +127,17 @@
                 NewYork: ["New York City", "Buffalo", "Rochester", "Albany"],
                 Florida: ["Miami", "Orlando", "Tampa", "Jacksonville"]
             };
-
-            // Populate city dropdown based on selected state
             $("#state").change(function () {
                 const selectedState = $(this).val();
                 const $cityDropdown = $("#city");
-
-                // Clear current city options
                 $cityDropdown.empty();
                 $cityDropdown.append('<option value="">Select a city</option>');
-
-                // Add relevant cities to the city dropdown
                 if (citiesByState[selectedState]) {
                     citiesByState[selectedState].forEach(function (city) {
                         $cityDropdown.append(`<option value="${city}">${city}</option>`);
                     });
                 }
             });
-
-            // Submit button click event
             $("#submitBtn").click(function () {
                 const state = $("#state").val();
                 const city = $("#city").val();

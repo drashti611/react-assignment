@@ -7,9 +7,9 @@
     <script>
         $(document).ready(function () {
             $("form").submit(function (event) {
-                event.preventDefault(); // Prevent the form from submitting
+                event.preventDefault();
 
-                // Validate name and email fields
+
                 var name = $("#name").val();
                 var email = $("#email").val();
                 var namePattern = /^[a-zA-Z ]{2,30}$/;
@@ -17,15 +17,15 @@
 
                 if (!name.match(namePattern)) {
                     alert("Please enter your name.");
-                    return false; // Prevent form submission
+                    return false;
                 }
 
                 if (!email.match(emailPattern)) {
                     alert("Please enter a valid email address.");
-                    return false; // Prevent form submission
+                    return false;
                 }
 
-                // Form data is valid, display an alert
+
                 alert("Form submitted!\nName: " + name + "\nEmail: " + email);
             });
         });

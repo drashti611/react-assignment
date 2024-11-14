@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+
         #chatBox {
             height: 300px;
             overflow-y: scroll;
@@ -17,15 +19,18 @@
             padding: 10px;
             background-color: #f9f9f9;
         }
+
         #chatBox div {
             margin-bottom: 10px;
         }
+
         .message {
             background-color: #e1e1e1;
             padding: 5px 10px;
             border-radius: 5px;
             max-width: 80%;
         }
+
         .message.user {
             background-color: #007bff;
             color: white;
@@ -33,70 +38,65 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <h2>Real-Time Chat</h2>
-    
-    <div id="chatBox">
-        <!-- Messages will be appended here -->
+    <div class="container">
+        <h2>Real-Time Chat</h2>
+
+        <div id="chatBox">
+        </div>
+
+        <form id="chatForm" class="d-flex mt-3">
+            <input type="text" id="messageInput" class="form-control" placeholder="Type your message here..."
+                autocomplete="off">
+            <button type="submit" class="btn btn-primary ms-2">Send</button>
+        </form>
     </div>
 
-    <form id="chatForm" class="d-flex mt-3">
-        <input type="text" id="messageInput" class="form-control" placeholder="Type your message here..." autocomplete="off">
-        <button type="submit" class="btn btn-primary ms-2">Send</button>
-    </form>
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const $chatBox = $('#chatBox');
+            const $messageInput = $('#messageInput');
+            $('#chatForm').submit(function (event) {
+                event.preventDefault();
 
-<script>
-$(document).ready(function() {
-    const $chatBox = $('#chatBox');
-    const $messageInput = $('#messageInput');
-    
-    // Send message via AJAX
-    $('#chatForm').submit(function(event) {
-        event.preventDefault();
-        
-        const message = $messageInput.val().trim();
-        if (message === '') {
-            return; // Ignore empty messages
-        }
+                const message = $messageInput.val().trim();
+                if (message === '') {
+                    return;
+                }
 
-        $.ajax({
-            url: 'send_message.php', // Server-side script for handling messages
-            type: 'POST',
-            data: { message: message },
-            success: function(response) {
-                $messageInput.val(''); // Clear input
-                loadMessages(); // Reload messages after sending
-            },
-            error: function() {
-                alert('Error sending message');
+                $.ajax({
+                    url: 'send_message.php',
+                    type: 'POST',
+                    data: { message: message },
+                    success: function (response) {
+                        $messageInput.val('');
+                        loadMessages();
+                    },
+                    error: function () {
+                        alert('Error sending message');
+                    }
+                });
+            });
+
+            function loadMessages() {
+                $.ajax({
+                    url: 'fetch_messages.php',
+                    type: 'GET',
+                    success: function (data) {
+                        $chatBox.html(data);
+                        $chatBox.scrollTop($chatBox[0].scrollHeight);
+                    }
+                });
             }
+            setInterval(loadMessages, 2000);
+            loadMessages();
         });
-    });
-
-    // Function to load messages via AJAX
-    function loadMessages() {
-        $.ajax({
-            url: 'fetch_messages.php', // Server-side script for fetching messages
-            type: 'GET',
-            success: function(data) {
-                $chatBox.html(data); // Replace the chat box content with new messages
-                $chatBox.scrollTop($chatBox[0].scrollHeight); // Auto-scroll to the bottom
-            }
-        });
-    }
-
-    // Periodically fetch new messages every 2 seconds
-    setInterval(loadMessages, 2000);
-    
-    // Initial load of messages
-    loadMessages();
-});
-</script>
+    </script>
 
 </body>
+
 </html>

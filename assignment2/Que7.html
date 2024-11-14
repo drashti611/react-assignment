@@ -54,19 +54,14 @@
 
     <script>
         $(document).ready(function () {
-            // Event listener for keyup on the search input
             $('#search').keyup(function () {
                 let query = $(this).val().trim();
-
-                // If the input has more than 2 characters, send an AJAX request
                 if (query.length > 2) {
                     $.ajax({
                         url: `https://api.unsplash.com/search/photos?client_id=ihSZRQqQcEgBgRsF6Ceyqxje13_RyLuOxVZx6xqQk30&lang=en&page=1&query=${query}`,
                         type: 'GET',
                         success: function (data) {
-                            $('#suggestions').empty(); // Clear previous suggestions
-
-                            // Display suggestions
+                            $('#suggestions').empty();
                             data.results.forEach(item => {
                                 $('#suggestions').append(`
                             <div class="autocomplete-suggestion">
@@ -75,16 +70,13 @@
                             </div>
                         `);
                             });
-
-                            // Attach click event to each suggestion
                             $('.autocomplete-suggestion').on('click', function () {
-                                $('#search').val($(this).text()); // Set the input field with the selected suggestion
-                                $('#suggestions').empty(); // Clear suggestions after selecting
+                                $('#search').val($(this).text());
+                                $('#suggestions').empty();
                             });
                         }
                     });
-                } else {
-                    $('#suggestions').empty(); // Clear suggestions if the input is too short
+                } else {// Clear suggestions if the input is too short
                 }
             });
         });

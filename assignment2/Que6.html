@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book List from API</title>
     <style>
-        /* Basic resets */
         * {
             margin: 0;
             padding: 0;
@@ -35,7 +34,6 @@
             text-transform: uppercase;
         }
 
-        /* Book list grid styling */
         #book-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -81,7 +79,6 @@
             margin-bottom: 10px;
         }
 
-        /* Button Styling */
         button {
             padding: 12px 30px;
             background-color: #3498db;
@@ -98,7 +95,6 @@
             background-color: #2980b9;
         }
 
-        /* Responsive Styling */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -120,20 +116,17 @@
 
     <script>
         document.getElementById('load-books').addEventListener('click', function () {
-            // The public API endpoint to fetch books data
             const apiUrl = 'https://openlibrary.org/subjects/programming.json?limit=6';
 
-            // Use Fetch API to retrieve data
             fetch(apiUrl)
                 .then(response => {
-                    // Ensure the response is valid
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
                     return response.json();
                 })
                 .then(data => {
-                    displayBooks(data.works); // Pass the books data to displayBooks function
+                    displayBooks(data.works);
                 })
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);
@@ -143,23 +136,19 @@
 
         function displayBooks(books) {
             const bookList = document.getElementById('book-list');
-            bookList.innerHTML = ''; // Clear any existing content
+            bookList.innerHTML = '';
 
-            // If no books found, show a message
+
             if (books.length === 0) {
                 bookList.innerHTML = '<p>No books found.</p>';
                 return;
             }
 
             books.forEach(book => {
-                // Create a new div for each book
+
                 const bookDiv = document.createElement('div');
                 bookDiv.classList.add('book');
-
-                // Check if there's a cover image available
                 const coverUrl = book.cover_id ? `https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg` : 'https://via.placeholder.com/200x300?text=No+Cover';
-
-                // Populate the book details
                 bookDiv.innerHTML = `
                     <img src="${coverUrl}" alt="${book.title}">
                     <div class="book-info">
@@ -167,8 +156,6 @@
                         <p>${book.author_name ? book.author_name.join(', ') : 'Unknown Author'}</p>
                     </div>
                 `;
-
-                // Append the book div to the book list
                 bookList.appendChild(bookDiv);
             });
         }

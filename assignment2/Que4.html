@@ -7,7 +7,6 @@
     <title>Image Slider</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* styles.css */
         body {
             font-family: Arial, sans-serif;
         }
@@ -54,7 +53,7 @@
             <img src="IMAGE/Screenshotforvege.png" alt="Image 1">
             <img src="IMAGE/wel.jpg" alt="Image 2">
             <img src="IMAGE/ww.jpg" alt="Image 3">
-            <!-- Add more images as needed -->
+
         </div>
         <div class="navigation">
             <button id="prevBtn">Previous</button>
@@ -68,23 +67,15 @@
             var currentIndex = 0;
             var slides = $('.slider img');
             var totalSlides = slides.length;
-
-            // Show the initial image
             showSlide(currentIndex);
-
-            // Handle "Next" button click
             $('#nextBtn').click(function () {
                 currentIndex = (currentIndex + 1) % totalSlides;
                 showSlide(currentIndex);
             });
-
-            // Handle "Previous" button click
             $('#prevBtn').click(function () {
                 currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
                 showSlide(currentIndex);
             });
-
-            // Function to show the current slide
             function showSlide(index) {
                 slides.hide();
                 slides.eq(index).show();
