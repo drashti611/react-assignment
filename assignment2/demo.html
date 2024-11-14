@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State and City Selector</title>
+    <style>
+        /* styles.css */
+        body {
+            
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .slider-container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .slider {
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .slider img {
+            max-width: 100%;
+            height: auto;
+            display: none;
+        }
+
+        .navigation {
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>State and City Selector</h1>
+    <label for="stateDropdown">Select a State:</label>
+    <select id="stateDropdown">
+        <option value="">Select a state...</option>
+        <option value="NewYork">New York</option>
+        <option value="California">California</option>
+        <!-- Add more states as needed -->
+    </select>
+    <br>
+    <label for="cityDropdown">Cities:</label>
+    <select id="cityDropdown">
+        <option value="">Select a state first</option>
+    </select>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const stateDropdown = document.getElementById("stateDropdown");
+    const cityDropdown = document.getElementById("cityDropdown");
+
+    // Define a dictionary of cities for each state
+    const citiesByState = {
+        NewYork: ["New York City", "Buffalo", "Rochester"],
+        California: ["Los Angeles", "San Francisco", "San Diego"],
+        // Add more states and cities as needed
+    };
+
+    // Function to populate the city dropdown based on the selected state
+    function populateCityDropdown(selectedState) {
+        // Clear the current options in the city dropdown
+        cityDropdown.innerHTML = "";
+
+        // Get the cities for the selected state from the dictionary
+        const cities = citiesByState[selectedState] || [];
+
+        // Add a default option
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Select a city...";
+        cityDropdown.appendChild(defaultOption);
+
+        // Add each city as an option
+        cities.forEach((city) => {
+            const option = document.createElement("option");
+            option.value = city;
+            option.textContent = city;
+            cityDropdown.appendChild(option);
+        });
+    }
+
+    // Event listener to update the city dropdown when a state is selected
+    stateDropdown.addEventListener("change", function () {
+        const selectedState = stateDropdown.value;
+        populateCityDropdown(selectedState);
+    });
+});
+
+    </script>
+</body>
+</html>

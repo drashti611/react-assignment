@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State and City Dropdown</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Background Style */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Dropdown Container */
+        .dropdown-container {
+            background: #e4e5fb;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(71, 67, 67, 0.15);
+            max-width: 400px;
+            border: solid #d2e2f9;
+            width: 100%;
+
+
+        }
+
+
+        /* Form Title */
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        /* Label Style */
+        label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+            color: #555;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        /* Dropdown Style */
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #555;
+            background: #f9f9f9;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+            outline: none;
+        }
+
+        /* Button Style */
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #0056b3, #007bff);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Additional Input Styling */
+        select::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        /* Smooth Transition for Dropdown */
+        select option {
+            padding: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="dropdown-container">
+        <h2>Select State and City</h2>
+        <label for="state">State:</label>
+        <select id="state">
+            <option value="">Select a state</option>
+            <option value="California">California</option>
+            <option value="Texas">Texas</option>
+            <option value="NewYork">New York</option>
+            <option value="Florida">Florida</option>
+        </select>
+
+        <label for="city">City:</label>
+        <select id="city">
+            <option value="">Select a city</option>
+        </select>
+
+        <button type="button" id="submitBtn">Submit</button>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Define cities for each state
+            const citiesByState = {
+                California: ["Los Angeles", "San Francisco", "San Diego", "Sacramento"],
+                Texas: ["Houston", "Austin", "Dallas", "San Antonio"],
+                NewYork: ["New York City", "Buffalo", "Rochester", "Albany"],
+                Florida: ["Miami", "Orlando", "Tampa", "Jacksonville"]
+            };
+
+            // Populate city dropdown based on selected state
+            $("#state").change(function () {
+                const selectedState = $(this).val();
+                const $cityDropdown = $("#city");
+
+                // Clear current city options
+                $cityDropdown.empty();
+                $cityDropdown.append('<option value="">Select a city</option>');
+
+                // Add relevant cities to the city dropdown
+                if (citiesByState[selectedState]) {
+                    citiesByState[selectedState].forEach(function (city) {
+                        $cityDropdown.append(`<option value="${city}">${city}</option>`);
+                    });
+                }
+            });
+
+            // Submit button click event
+            $("#submitBtn").click(function () {
+                const state = $("#state").val();
+                const city = $("#city").val();
+
+                if (state && city) {
+                    alert(`You selected: State - ${state}, City - ${city}`);
+                } else {
+                    alert("Please select both a state and a city.");
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
